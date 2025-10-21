@@ -13,8 +13,8 @@
             </div>
         @endif
         @if(session('message'))
-            <div class="toast" id="toastSuccess">
-                <i class="fa-solid fa-circle-check"></i>
+            <div class="toast1" id="toastSuccess">
+                <i class="fa-solid fa-circle-xmark"></i>
                 {{ session('message') }}
             </div>
     @endif
