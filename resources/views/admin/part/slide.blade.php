@@ -9,7 +9,7 @@
                             <ul class="sub-menu">
                                 <li>
                                     <div class="sub-menu-items">
-                                            <a href="/admin/orderlist"><i class="ri-arrow-right-s-line"></i>Danh Sách</a>   
+                                            <a href="/admin/order/list"><i class="ri-arrow-right-s-line"></i>Danh Sách</a>   
                                     </div>
                                 </li>
                             </ul>

@@ -44,11 +44,12 @@ $('#files').on('change', function(e) {
         processData: false,
         success: function(result) {
             if (result.success == true) {
-                let url = window.location.hostname;
+                let html="";
+                
                 if (url.includes('minacode.net')) {
                     for (let index = 0; index < result.url.length; index++) {
                         let truePath = "/public" + result.url[index];
-                        html=""
+                        
                         html += '<img src="' + truePath + '" alt=""><input type="hidden" value="' + truePath + '" class="product-images" name="product_images[]">';
                     }
                     $('#input-file-imgs').html(html);

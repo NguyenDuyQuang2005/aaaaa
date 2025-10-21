@@ -2,6 +2,12 @@
 
 @section('content')
 <div class="admin-content-main-content-product-list">
+     @if(session('success'))
+            <div class="toast" id="toastSuccess">
+                <i class="fa-solid fa-circle-check"></i>
+                {{ session('success') }}
+            </div>
+    @endif
     <table>
         <thead>
             <tr>
@@ -24,8 +30,9 @@
                 <td>{{ number_format((float)$item->price_sale) }}</td>
                 <td>{{ $item->created_at }}</td>
                 <td>
-                    <a class="edit-class" href="productadd.html">Sửa</a> |
+                    <a class="edit-class" href="/admin/product/edit/{{$item->id}}" href="">Sửa</a> |
                     <a onclick="removeRow({{ $item->id }}, '{{ url('admin/product/delete') }}')" class="delete-class" href="#">Xóa</a>
+                </td>
             </tr>
             @endforeach
         </tbody>

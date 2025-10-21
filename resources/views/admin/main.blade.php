@@ -15,7 +15,7 @@
                 </div>
                  <div class="admin-content-main">
                         <div class="admin-content-main-title">
-                          <h1>{{$title}}</h1>  
+                           <h1>{{$title}}</h1>
                         </div>
                         <div class="admin-content-main-content">
                             <!-- noi dung nam o day -->

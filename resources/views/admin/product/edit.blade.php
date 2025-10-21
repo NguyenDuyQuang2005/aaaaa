@@ -1,33 +1,64 @@
 @extends('admin.main')
 @section('content')
-<form action="/admin/product/add" enctype="multipart/form-data" method="post">
+<form action="/admin/product/edit/{{ $product->id }}" enctype="multipart/form-data" method="post">
+     @csrf
     <div class="admin-content-main-content-product-add">
                                 <div class="admin-content-main-content-left">
                                     <div class="admin-content-main-content-input-two">
-                                        <input type="text" value="{{old('name')}}" name="name" placeholder="Tên Sản Phẩm">
-                                        <input type="text" value="{{old('masanpham')}}" name="masanpham" placeholder="Mã Sản Phẩm">
+                                        <input type="text" value="{{$product->name}}" name="name" placeholder="Ten San pham">
+                                        <input type="text" value="{{$product->masanpham}}" name="masanpham" placeholder="Ma San pham">
                                     </div>
                                     <div class="admin-content-main-content-input-two">
-                                        <input type="text" value="{{old('price_normal')}}" name="price_normal" placeholder="Giá bán">
-                                        <input type="text" value="{{old('price_sale')}}" name="price_sale" placeholder="Giá giảm">
+                                        <input type="text" value="{{$product->price_normal}}" name="price_normal" placeholder="Gia ban">
+                                        <input type="text" value="{{$product->price_sale}}" name="price_sale" placeholder="Gia giam">
                                     </div>
                                     <laber for="">Thông tin sản phẩm <span style="color: red;  ">* </span></laber>
-                                    <textarea required value="{{old('description')}}" name="description" id=""  ></textarea>
+                                    <textarea required value="" name="description" id="" >{{$product->description}}</textarea>
                                     <laber for="">Mô tả sản phẩm <span style="color: red;  ">* </span></laber>
-                                    <textarea required name="content">{{ old('content') }}</textarea>
-                                    <button type="submit" class="main-btn">Thêm Sản Phẩm</button>
+                                    <textarea required name="content">{{ $product->content }}</textarea>
+                                    <button type="submit" class="main-btn">Cập Nhật Sản Phẩm</button>
                                 </div>
                                 <div class="admin-content-main-content-right">
                                     <div class="admin-content-main-content-right-img">
                                         <label for="file">Ảnh Sản Phẩm</label>
                                         <input id="file" type="file">
-                                        <input type="hidden" name="image" id="input-file-img-hidden"> 
-                                        <div class="image-show" id="input-file-img"></div>
+                                        <input type="hidden" value="{{$product->image}}" name="image" id="input-file-img-hidden">
+                                        <div class="image-show" id="input-file-img">
+                                            <img src="{{$product->image}}" alt="">
+                                        </div>
                                     </div>
                                     <div class="admin-content-main-content-right-imgs">
                                         <label for="files">Ảnh Mô Tả</label>
                                         <input type="file" id="files" name="files[]" multiple accept="image/*">
-                                        <div class="images-show" id="input-file-imgs"></div>
+                                        <input type="hidden" name="images[]" id="images-hidden">
+                                        <div class="images-show" id="input-file-imgs">
+                                            @php
+                                                // Lấy chuỗi ảnh và lọc phần tử rỗng
+                                                $image_string = $product->images;
+                                                $raw_images = explode("*", $image_string);
+                                                $product_images = array_filter($raw_images, function($value) {
+                                                    return !empty(trim($value));
+                                                });
+                                            @endphp
+                                            
+                                            @foreach($product_images as $product_image)
+                                                @php 
+                                                    $image_url = trim($product_image); 
+                                                    $display_url = asset($image_url); 
+                                                    if (str_starts_with($image_url, 'http')) {
+                                                        $display_url = $image_url;
+                                                    }
+                                                @endphp
+                                                
+                                                @if(!empty($image_url))
+                                                    <div class="image-preview" style="display: inline-block; margin-right: 5px;">
+                                                        <img src="{{ $display_url }}" alt="Ảnh mô tả" style="max-width: 100px; height: auto;">
+                                                        
+                                                        <input type="hidden" value="{{ $image_url }}" name="images[]">
+                                                    </div>
+                                                @endif
+                                            @endforeach
+                                        </div>
                                     </div>
                                 </div>
  </div>
